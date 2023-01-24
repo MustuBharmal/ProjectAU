@@ -1,96 +1,107 @@
-import '../dummy_data.dart';
-import '../screens/favorite_screens.dart';
-import '../screens/filter_screen.dart';
-import '../screens/meal_detail_screen.dart';
-import '../screens/tab_screen.dart';
-import './screens/category_meals_screen.dart';
 import 'package:flutter/material.dart';
-import 'models/meals.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+var num = 8;
+
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  Map<String, bool> _filters = {
-    'gluten': false,
-    'lactose': false,
-    'vegan': false,
-    'vegetarian': false,
-  };
-  List<Meals> _availableMeals = DUMMY_MEALS;
-  List<Meals> _favoriteMeals = [];
-
-  void _setFilters(Map<String, bool> filterData) {
-    setState(() {
-      _filters = filterData;
-      _availableMeals = DUMMY_MEALS.where((meal) {
-        if (_filters['gluten']! && !meal.isGlutenFree) {
-          return false;
-        }
-        if (_filters['lactose']! && !meal.isLactoseFree) {
-          return false;
-        }
-        if (_filters['vegan']! && !meal.isVegan) {
-          return false;
-        }
-        if (_filters['vegetarian']! && !meal.isVegetarian) {
-          return false;
-        }
-        return true;
-      }).toList();
-    });
-  }
-
-  void _toggleFavorite(String mealId) {
-    final existingIndex = _favoriteMeals.indexWhere(
-      (meal) => meal.id == mealId,
-    );
-    if(existingIndex >= 0){
-      setState(() {
-        _favoriteMeals.removeAt(existingIndex);
-      });
-    }
-    else{
-      setState(() {
-        _favoriteMeals.add(
-          DUMMY_MEALS.firstWhere((meal) => meal.id == mealId),
-        );
-      });
-    }
-  }
-  bool isMealFavorite(String id){
-    return _favoriteMeals.any((meal) => meal.id == id);
-  }
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'DeliMeals',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-        errorColor: Colors.amber,
-        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+      home: Scaffold(
+        backgroundColor: Colors.blueGrey,
+        appBar: AppBar(
+          title: const Text('AU App'),
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              child: CircleAvatar(
+                child: Container(
+                  padding: const EdgeInsets.all(3),
+                ),
+              ),
+              onTap: () {},
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {},
+            ),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            ImageSlideshow(
+              width: double.infinity,
+              height: 220,
+              initialPage: 0,
+
+              /// Auto scroll interval.
+              /// Do not auto scroll with null or 0.
+              autoPlayInterval: 3000,
+
+              /// Loops back to first slide.
+              isLoop: true,
+              children: [
+                Image.asset(
+                  'assets/images/sample_images1.png',
+                  fit: BoxFit.cover,
+                ),
+                Image.asset(
+                  'assets/images/sample_images2.png',
+                  fit: BoxFit.cover,
+                ),
+                Image.asset(
+                  'assets/images/sample_images3.png',
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+            const Divider(),
+            Card(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [
+                    Colors.blueGrey,
+                    Colors.blueAccent,
+                  ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 230,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: const Text(
+                      'All Details',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const ListTile(
+              leading: Icon(Icons.cake),
+              title: Text('happy Birthday1'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.cake),
+              title: Text('happy Birthday2'),
+            ),const ListTile(
+              leading: Icon(Icons.cake),
+              title: Text('happy Birthday3'),
+            ),const ListTile(
+              leading: Icon(Icons.cake),
+              title: Text('happy Birthday4'),
+            ),
+          ],
+        ),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (ctx) => TabScreens(_favoriteMeals),
-        '/category-meals': (ctx) => CategoryMealsScreen(_availableMeals),
-        '/meal-detail': (ctx) => MealDetailScreen(_toggleFavorite, isMealFavorite),
-        '/filters': (ctx) => FilterScreen(_filters, _setFilters),
-        '/favorites': (ctx) => FavoriteScreens(_favoriteMeals),
-      },
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(
-            builder: (ctx) => CategoryMealsScreen(_availableMeals));
-      },
     );
   }
 }
