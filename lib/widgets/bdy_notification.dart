@@ -8,7 +8,7 @@ class BdyNotification extends StatelessWidget {
 
     // CarouselSlider.builder
     return CarouselSlider(
-      options: CarouselOptions(height: 200.0),
+      options: CarouselOptions(height: 150.0),
       items: [
         'happy birthday1',
         'happy birthday2',

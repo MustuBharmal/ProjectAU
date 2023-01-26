@@ -6,31 +6,36 @@ class ImageSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageSlideshow(
-      width: double.infinity,
-      height: 220,
-      initialPage: 0,
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(20),
+      ),
+      child: ImageSlideshow(
+        width: double.infinity,
+        height: 220,
+        initialPage: 0,
 
-      /// Auto scroll interval.
-      /// Do not auto scroll with null or 0.
-      autoPlayInterval: 9000,
+        /// Auto scroll interval.
+        /// Do not auto scroll with null or 0.
+        autoPlayInterval: 9000,
 
-      /// Loops back to first slide.
-      isLoop: true,
-      children: [
-        Image.asset(
-          'assets/images/sample_images1.png',
-          fit: BoxFit.cover,
-        ),
-        Image.asset(
-          'assets/images/sample_images2.png',
-          fit: BoxFit.cover,
-        ),
-        Image.asset(
-          'assets/images/sample_images3.png',
-          fit: BoxFit.cover,
-        ),
-      ],
+        /// Loops back to first slide.
+        isLoop: true,
+        children: [
+          Image.network(
+            'https://images.bhaskarassets.com/web2images/960/2021/07/27/1_1627361538.jpg',
+            fit: BoxFit.cover,
+          ),
+          Image.network(
+            'https://www.static-contents.youth4work.com/university/Documents/Colleges/collegeLogo/1638902.png?v=20190131140940',
+            fit: BoxFit.cover,
+          ),
+          Image.network(
+            'https://i.ytimg.com/vi/ItqsRDkEsEk/maxresdefault.jpg',
+            fit: BoxFit.cover,
+          ),
+        ],
+      ),
     );
   }
 }
