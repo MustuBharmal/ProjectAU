@@ -31,6 +31,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.5
+  intl: ^0.17.0
+  stacked_notification_cards: ^0.1.0-dev.2
+  enum_to_string: ^2.0.1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,9 +45,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_image_slideshow: any
-  provider: ^6.0.5
   carousel_slider: ^4.2.1
-
+  list_wheel_scroll_view_nls: ^0.0.3
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

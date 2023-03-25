@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum Education {
   SSC,
   HSC,
@@ -12,19 +14,21 @@ enum Category {
   Yuvak,
 }
 
-class Details {
+class Lists with ChangeNotifier {
+  final String id;
   final String name;
   final String address;
-  final String bloodgrup;
+  final String bloodGroup;
   final String imageUrl;
   final Education education;
   final Category category;
   final String dob;
 
-  const Details({
+  Lists({
+    required this.id,
     required this.name,
     required this.address,
-    required this.bloodgrup,
+    required this.bloodGroup,
     required this.imageUrl,
     required this.education,
     required this.category,

@@ -8,11 +8,11 @@ class ImageSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.all(
-        Radius.circular(20),
+        Radius.circular(10),
       ),
       child: ImageSlideshow(
         width: double.infinity,
-        height: 220,
+        height: 230,
         initialPage: 0,
 
         /// Auto scroll interval.
@@ -24,15 +24,15 @@ class ImageSlider extends StatelessWidget {
         children: [
           Image.network(
             'https://images.bhaskarassets.com/web2images/960/2021/07/27/1_1627361538.jpg',
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
           Image.network(
             'https://www.static-contents.youth4work.com/university/Documents/Colleges/collegeLogo/1638902.png?v=20190131140940',
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
           Image.network(
             'https://i.ytimg.com/vi/ItqsRDkEsEk/maxresdefault.jpg',
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ],
       ),
