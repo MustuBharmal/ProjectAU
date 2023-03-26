@@ -1,25 +1,16 @@
-import '../providers/list_provider.dart';
 import '../screens/detail_screen.dart';
-import '../providers/lists.dart';
 import 'package:flutter/material.dart';
-import 'package:enum_to_string/enum_to_string.dart';
-import 'package:provider/provider.dart';
 
 class AllDetails extends StatelessWidget {
+
   final String id;
   final String name;
   final String imageUrl;
-  final Category category;
-  final Education education;
-
-  const AllDetails(
-      this.id, this.name, this.imageUrl, this.category, this.education,
-      {super.key});
-
+  final String category;
+  final String education;
+  const AllDetails(this.id, this.name, this.imageUrl, this.category, this.education, {super.key});
   @override
   Widget build(BuildContext context) {
-    String cat = EnumToString.convertToString(category);
-    String ed = EnumToString.convertToString(education);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -37,8 +28,8 @@ class AllDetails extends StatelessWidget {
               backgroundImage: NetworkImage(imageUrl),
             ),
             subtitle: Text(
-              "Education: $ed\n"
-              "Category : $cat",
+              "Education: $education\n"
+              "Category : $category",
             ),
             onTap: () {
               Navigator.of(context).pushNamed(

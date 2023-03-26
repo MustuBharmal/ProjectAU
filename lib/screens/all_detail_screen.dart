@@ -1,20 +1,56 @@
+import '../models/category.dart';
+import '../models/user_data.dart';
 import '../screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/list_provider.dart';
+import '../providers/data_provider.dart';
 import '../widgets/all_details.dart';
+import '../widgets/custom_search_delegate.dart';
 
-class AllDetailScreen extends StatelessWidget {
+class AllDetailScreen extends StatefulWidget {
   static const routeName = '/all_details_screen';
 
   const AllDetailScreen({super.key});
 
   @override
+  State<AllDetailScreen> createState() => _AllDetailScreenState();
+}
+
+class _AllDetailScreenState extends State<AllDetailScreen> {
+  Category? category;
+  bool dataFetched = false;
+  late List<UserData> userData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if (!dataFetched) {
+      final args =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      category = args['category'] as Category;
+      if (category!.title == 'All Details') {
+        userData = Provider.of<DataProvider>(context).getAllUser(category!.title);
+      } else {
+        userData = Provider.of<DataProvider>(context)
+            .getUserByCategory(category!.title);
+      }
+    }
+
+    dataFetched = true;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final detailsData = Provider.of<ListProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Details'),
+        title: Text(category!.title),
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(HomePage.routeName);
@@ -23,21 +59,27 @@ class AllDetailScreen extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // method to show the search bar
+              showSearch(
+                  context: context,
+                  // delegate to customize the search bar
+                  delegate: CustomSearchDelegate()
+              );
+            },
             icon: const Icon(Icons.search),
-            iconSize: 30,
-          ),
+          )
         ],
       ),
       body: ListView.builder(
         itemBuilder: (ctx, i) => AllDetails(
-          detailsData.list[i].id,
-          detailsData.list[i].name,
-          detailsData.list[i].imageUrl,
-          detailsData.list[i].category,
-          detailsData.list[i].education,
+          userData[i].id,
+          userData[i].name,
+          userData[i].imageUrl,
+          userData[i].category,
+          userData[i].education,
         ),
-        itemCount: detailsData.list.length,
+        itemCount: userData.length,
       ),
     );
   }

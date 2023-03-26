@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+import '../providers/data_provider.dart';
 import '../screens/all_detail_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ class BodyDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = Provider.of<DataProvider>(context);
     return SizedBox(
       child: Column(
         children: <Widget>[
@@ -26,7 +29,11 @@ class BodyDetail extends StatelessWidget {
                     tooltip: 'details',
                     color: Colors.white70,
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(AllDetailScreen.routeName);
+                      Navigator.of(context).pushReplacementNamed(
+                          AllDetailScreen.routeName,
+                          arguments: {
+                            'category': list.categories[0],
+                          });
                     },
                     iconSize: 60.00,
                   ),
@@ -46,7 +53,13 @@ class BodyDetail extends StatelessWidget {
                     icon: const Icon(Icons.account_circle_outlined),
                     tooltip: 'details',
                     color: Colors.white70,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                          AllDetailScreen.routeName,
+                          arguments: {
+                            'category': list.categories[1],
+                          });
+                    },
                     iconSize: 60.00,
                   ),
                 ),
@@ -65,7 +78,13 @@ class BodyDetail extends StatelessWidget {
                     icon: const Icon(Icons.add_box_rounded),
                     tooltip: 'details',
                     color: Colors.white70,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                          AllDetailScreen.routeName,
+                          arguments: {
+                            'category': list.categories[2],
+                          });
+                    },
                     iconSize: 60.00,
                   ),
                 ),
@@ -88,7 +107,13 @@ class BodyDetail extends StatelessWidget {
                     icon: const Icon(Icons.add_circle),
                     tooltip: 'details',
                     color: Colors.white70,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                          AllDetailScreen.routeName,
+                          arguments: {
+                            'category': list.categories[3],
+                          });
+                    },
                     iconSize: 60.00,
                   ),
                 ),
@@ -107,7 +132,13 @@ class BodyDetail extends StatelessWidget {
                     icon: const Icon(Icons.account_balance_sharp),
                     tooltip: 'details',
                     color: Colors.white70,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                          AllDetailScreen.routeName,
+                          arguments: {
+                            'category': list.categories[4],
+                          });
+                    },
                     iconSize: 60.00,
                   ),
                 ),

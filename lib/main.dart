@@ -1,5 +1,4 @@
-import '../providers/detail.dart';
-import '../providers/list_provider.dart';
+import '../providers/data_provider.dart';
 import '../screens/detail_screen.dart';
 import 'package:provider/provider.dart';
 import '../screens/all_detail_screen.dart';
@@ -11,19 +10,21 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // List<UserData> _availableDetails;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => ListProvider() ,
-        ),
-        ChangeNotifierProvider(
-
-         create: (ctx) => Detail(),
+          create: (ctx) => DataProvider() ,
         ),
       ],
       child: MaterialApp(
@@ -35,9 +36,8 @@ class MyApp extends StatelessWidget {
         ),
         home: const HomePage(),
         routes: {
-          HomePage.routeName: (ctx) => const HomePage(),
           NotificationScreen.routeName: (ctx) => const NotificationScreen(),
-          AllDetailScreen.routeName: (ctx) => const AllDetailScreen(),
+          AllDetailScreen.routeName: (ctx) =>   const AllDetailScreen(),
           DetailScreen.routeNamed: (ctx) => const DetailScreen(),
         },
       ),
