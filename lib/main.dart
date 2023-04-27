@@ -1,3 +1,6 @@
+import 'package:demoapp/screens/add_new_detail_screen.dart';
+import 'package:demoapp/screens/splash_screen.dart';
+
 import '../providers/data_provider.dart';
 import '../screens/detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => DataProvider() ,
+          create: (ctx) => DataProvider(),
         ),
       ],
       child: MaterialApp(
@@ -34,11 +37,13 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.orange,
           ).copyWith(secondary: Colors.redAccent),
         ),
-        home: const HomePage(),
+        home: const SplashScreen(),
         routes: {
+          AddNewDetailScreen.routeName:(ctx)=>const AddNewDetailScreen(),
           NotificationScreen.routeName: (ctx) => const NotificationScreen(),
-          AllDetailScreen.routeName: (ctx) =>   const AllDetailScreen(),
+          AllDetailScreen.routeName: (ctx) => const AllDetailScreen(),
           DetailScreen.routeNamed: (ctx) => const DetailScreen(),
+          HomePage.routeName: (ctx) => const HomePage(),
         },
       ),
     );

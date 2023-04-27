@@ -35,6 +35,8 @@ dependencies:
   intl: ^0.17.0
   stacked_notification_cards: ^0.1.0-dev.2
   enum_to_string: ^2.0.1
+  go_router: ^6.5.5
+  carousel_slider: ^4.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,7 +47,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_image_slideshow: any
-  carousel_slider: ^4.2.1
   list_wheel_scroll_view_nls: ^0.0.3
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -64,9 +65,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/sample_images1.png
-    - assets/images/sample_images2.png
-    - assets/images/sample_images3.png
+    - assets/images/atmiya_logo.jpg
+    - assets/images/image1.jpg
+    - assets/images/image2.jpg
+    - assets/images/image3.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

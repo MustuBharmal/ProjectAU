@@ -35,7 +35,8 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       category = args['category'] as Category;
       if (category!.title == 'All Details') {
-        userData = Provider.of<DataProvider>(context).getAllUser(category!.title);
+        userData =
+            Provider.of<DataProvider>(context).getAllUser(category!.title);
       } else {
         userData = Provider.of<DataProvider>(context)
             .getUserByCategory(category!.title);
@@ -50,12 +51,19 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(category!.title),
+        title: Text(
+          category!.title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(HomePage.routeName);
           },
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
         ),
         actions: <Widget>[
           IconButton(
@@ -64,10 +72,9 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
               showSearch(
                   context: context,
                   // delegate to customize the search bar
-                  delegate: CustomSearchDelegate()
-              );
+                  delegate: CustomSearchDelegate());
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, size: 35.0,),
           )
         ],
       ),

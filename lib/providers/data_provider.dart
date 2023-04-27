@@ -13,7 +13,7 @@ class DataProvider with ChangeNotifier {
       address: 'Rajkamal Chowk, Rajkot',
       contact: '6398785412',
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/8/86/Salman_Khan_at_Renault_Star_Guild_Awards.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/8/86/Salman_Khan_at_Renault_Star_Guild_Awards.jpg',
       education: 'SSC',
       category: 'Yuvak',
       dob: '1/1/1988',
@@ -26,7 +26,7 @@ class DataProvider with ChangeNotifier {
       address: 'Aakashvani Chowk, Rajkot',
       contact: '7896541232',
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Akshay_Kumar.jpg/330px-Akshay_Kumar.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Akshay_Kumar.jpg/330px-Akshay_Kumar.jpg',
       education: 'HSC',
       category: 'Ambrish',
       dob: '10/9/198',
@@ -39,7 +39,7 @@ class DataProvider with ChangeNotifier {
       address: 'University Road, Rajkot',
       contact: '9632587412',
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Indian_actor_Amitabh_Bachchan.jpg/330px-Indian_actor_Amitabh_Bachchan.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Indian_actor_Amitabh_Bachchan.jpg/330px-Indian_actor_Amitabh_Bachchan.jpg',
       education: 'Bachelors',
       category: 'Sadbhav',
       dob: '8/8/1998',
@@ -52,7 +52,7 @@ class DataProvider with ChangeNotifier {
       address: 'Bhagwatipara Road, Rajkot',
       contact: '9874569854',
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg/330px-Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg/330px-Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg',
       education: 'Masters',
       category: 'Sadbhav',
       dob: '10/9/1998',
@@ -65,7 +65,7 @@ class DataProvider with ChangeNotifier {
       contact: '8521478963',
       bloodGroup: 'AB+',
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/d/d2/Ranbir_Kapoor_promoting_Brahmastra.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/d/d2/Ranbir_Kapoor_promoting_Brahmastra.jpg',
       education: 'PHD',
       category: 'Yuvak',
       dob: '28/1/1998',
@@ -200,12 +200,69 @@ class DataProvider with ChangeNotifier {
     return _list.firstWhere((prod) => prod.id == id);
   }
 
+  Future<void> updateUser(String id, UserData newUser) async {
+    final prodIndex = _list.indexWhere((prodId) => prodId.id == id);
+    if (prodIndex >= 0) {
+      // final uri = Uri.parse(
+      //   'https://flutter-project-802a7-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken',
+      // );
+      // await http.patch(uri,
+      //     body: json.encode({
+      //       'name': newUser.name,
+      //       'address': newUser.address,
+      //       'imageUrl': newUser.imageUrl,
+      //       'contact': newUser.contact,
+      //     }));
+      _list[prodIndex] = newUser;
+      notifyListeners();
+    } else {}
+  }
+
   void clear(int a) {
     _listOfNotification = [];
     notifyListeners();
   }
 
+  Future<void> addProducts(UserData data) async {
+    // final uri = Uri.parse(
+    //   'https://flutter-project-802a7-default-rtdb.firebaseio.com/products.json?auth=$authToken',
+    // );
+    // try {
+    //   final response = await http.post(
+    //     uri,
+    //     body: json.encode(
+    //       {
+    // 'name': newUser.name,
+    // 'address': newUser.address,
+    // 'imageUrl': newUser.imageUrl,
+    // 'contact': newUser.contact,
+    // 'creatorId': userId,
+    //   },
+    // ),
+    // );
+    final newUser = UserData(
+      id: DateTime.now().toString(),
+      // id: json.decode(response.body)['name'],
+      name: data.name,
+      address: data.address,
+      contact: data.contact,
+      imageUrl: data.imageUrl,
+      age: data.age,
+      bloodGroup: data.bloodGroup,
+      category: data.contact,
+      dob: data.dob,
+      education: data.education,
+    );
+    _list.add(newUser);
+    notifyListeners();
+  }
+
+// catch (error) {
+//   print(error);
+//   throw error;
+// }
   Category findById2(String id) {
     return _categories.firstWhere((prod) => prod.id == id);
   }
 }
+

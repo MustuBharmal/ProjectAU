@@ -1,3 +1,4 @@
+
 import '../widgets/main_drawer.dart';
 
 import '../widgets/body_detail.dart';
@@ -8,7 +9,7 @@ import '../widgets/notification_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-  static const routeName = '/';
+  static const routeName = 'homepage_screen';
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,20 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.white,
       drawer: const MainDrawer(),
       appBar: AppBar(
-        title: const Text(
-          'AU App',
-          style: TextStyle(color: Colors.black),
+        elevation: 0,
+        title: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 10,
+          ),
+          child: const Text(
+            'AU App',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         actions: <Widget>[
           IconButton(
@@ -32,6 +44,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(),
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(

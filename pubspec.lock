@@ -18,7 +18,7 @@ packages:
     source: hosted
     version: "2.1.1"
   carousel_slider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: carousel_slider
       sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
@@ -82,10 +82,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_image_slideshow
-      sha256: "0192bf6c683fe993e4694d8803c0b4a0c0757333c356900a9b74bb7fe57546da"
+      sha256: "153b097e4f401a8e0bcc9edaf669a2e5814c9866e80165b5f00a06fb2acd7758"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -107,6 +107,19 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "4d141302e68dcdec0949ac798b5a8cf307eb6f79c70830ef1a2aec9b31827c28"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.8"
   intl:
     dependency: "direct main"
     description:
@@ -139,6 +152,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.3"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "04094f2eb032cbb06c6f6e8d3607edcfcb0455e2bb6cbc010cb01171dcb64e6d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   matcher:
     dependency: transitive
     description:
@@ -258,4 +279,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.18.6 <3.0.0"
-  flutter: ">=1.22.0"
+  flutter: ">=3.3.0"

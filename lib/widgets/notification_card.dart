@@ -24,7 +24,7 @@ class _NotificationCardsState extends State<NotificationCards> {
             )
           ],
           notificationCards: dataProvider.listOfNotification,
-          cardColor: const Color(0xFFFFB950),
+          cardColor: const Color(0xC7FFBE4D),
           padding: 14,
           actionTitle: const Text(
             'Notifications',
