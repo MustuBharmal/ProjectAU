@@ -1,6 +1,13 @@
 # demoapp
 
 A new Flutter project.
+This flutter app is to store Data of the particular members of the society.
+It contains no. of category to identify the person. It also have notification feature
+with birthday remainder which is in work in progress. The data base which is going to
+use here is Firebase. 
+
+-> Remaining Tasks are:- Multiple user authentication, Complete storing in the database,
+updating features in UI.
 
 ## Getting Started
 
