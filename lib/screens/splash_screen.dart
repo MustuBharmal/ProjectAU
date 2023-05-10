@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:demoapp/screens/auth_screen.dart';
+
 import '../screens/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,7 @@ class SplashScreen extends StatelessWidget {
       const Duration(seconds: 2),
       () => Navigator.pushNamed(
         context,
-        HomePage.routeName,
+        AuthScreen.routeName,
       ),
     );
     return Scaffold(

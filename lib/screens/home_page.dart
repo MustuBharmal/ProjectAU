@@ -1,6 +1,4 @@
-
-import '../widgets/main_drawer.dart';
-
+import '../screens/app_drawer.dart';
 import '../widgets/body_detail.dart';
 import '../screens/notification_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +13,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: const MainDrawer(),
       appBar: AppBar(
         elevation: 0,
         title: Container(
@@ -44,7 +41,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(),
+      drawer: const AppDrawer(),
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(

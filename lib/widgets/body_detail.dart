@@ -1,3 +1,4 @@
+import '../screens/add_new_detail_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/data_provider.dart';
 import '../screens/all_detail_screen.dart';
@@ -35,10 +36,9 @@ class BodyDetail extends StatelessWidget {
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.account_box),
-                    tooltip: 'details',
                     color: Colors.orange[500],
                     onPressed: () {
-                      clicking(0);
+                      clicking(2);
                     },
                     iconSize: 60.00,
                   ),
@@ -55,8 +55,8 @@ class BodyDetail extends StatelessWidget {
                     ),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.cake),
-                    tooltip: 'details',
+                    icon: const Icon(Icons.account_balance_wallet_outlined),
+                    // tooltip: 'details',
                     color: Colors.orange[500],
                     onPressed: () {
                       clicking(1);
@@ -76,11 +76,11 @@ class BodyDetail extends StatelessWidget {
                     ),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.add_box_rounded),
-                    tooltip: 'details',
+                    icon: const Icon(Icons.ad_units_outlined),
+                    // tooltip: 'details',
                     color: Colors.orange[500],
                     onPressed: () {
-                      clicking(2);
+                      clicking(3);
                     },
                     iconSize: 60.00,
                   ),
@@ -101,11 +101,11 @@ class BodyDetail extends StatelessWidget {
                     ),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.add_circle),
-                    tooltip: 'details',
+                    icon: const Icon(Icons.cake_outlined),
+                    // tooltip: 'details',
                     color: Colors.orange[500],
                     onPressed: () {
-                      clicking(3);
+                      // clicking(3);
                     },
                     iconSize: 60.00,
                   ),
@@ -122,11 +122,11 @@ class BodyDetail extends StatelessWidget {
                     ),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.account_balance_sharp),
+                    icon: const Icon(Icons.add_circle_outline),
                     tooltip: 'details',
                     color: Colors.orange[500],
                     onPressed: () {
-                      clicking(4);
+                      Navigator.of(context).pushNamed(AddNewDetailScreen.routeName);
                     },
                     iconSize: 60.00,
                   ),

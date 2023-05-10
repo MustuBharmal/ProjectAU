@@ -1,5 +1,5 @@
 import '../models/category.dart';
-import '../models/user_data.dart';
+import '../models/people_data.dart';
 import '../screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +19,13 @@ class AllDetailScreen extends StatefulWidget {
 class _AllDetailScreenState extends State<AllDetailScreen> {
   Category? category;
   bool dataFetched = false;
-  late List<UserData> userData;
+  late List<PeopleData> userData;
+  var _isInit = true;
+  var _isLoading = false;
 
   @override
   void initState() {
-    // TODO: implement initState
+    // Provider.of<DataProvider>(context).fetchAndSetProducts();
     super.initState();
   }
 
@@ -44,6 +46,17 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
     }
 
     dataFetched = true;
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<DataProvider>(context).fetchAndSetPeopleData().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 
@@ -74,7 +87,10 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
                   // delegate to customize the search bar
                   delegate: CustomSearchDelegate());
             },
-            icon: const Icon(Icons.search, size: 35.0,),
+            icon: const Icon(
+              Icons.search,
+              size: 35.0,
+            ),
           )
         ],
       ),

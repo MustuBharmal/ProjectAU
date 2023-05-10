@@ -1,86 +1,97 @@
+import 'package:demoapp/constant/firestore_constant.dart';
+import 'package:demoapp/models/http_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_notification_cards/stacked_notification_cards.dart';
-import '../models/user_data.dart';
+import '../models/people_data.dart';
 import '../models/category.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
 
 class DataProvider with ChangeNotifier {
-  final List<UserData> _list = [
-    UserData(
+  final db = FirebaseFirestore.instance;
+  final List<PeopleData> _list = [
+    PeopleData(
       id: 'p1',
       name: 'Mahesh',
+      address: 'Rajkamal Chowk, Rajkot',
       age: '28',
       bloodGroup: 'A+',
-      address: 'Rajkamal Chowk, Rajkot',
-      contact: '6398785412',
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/8/86/Salman_Khan_at_Renault_Star_Guild_Awards.jpg',
-      education: 'SSC',
       category: 'Yuvak',
+      contact: '6398785412',
       dob: '1/1/1988',
+      education: 'SSC',
+      area: 'Area 1',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/8/86/Salman_Khan_at_Renault_Star_Guild_Awards.jpg',
     ),
-    UserData(
+    PeopleData(
       id: 'p2',
       name: 'Ramesh',
+      address: 'Aakashvani Chowk, Rajkot',
       age: '36',
       bloodGroup: 'B+',
-      address: 'Aakashvani Chowk, Rajkot',
-      contact: '7896541232',
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Akshay_Kumar.jpg/330px-Akshay_Kumar.jpg',
-      education: 'HSC',
       category: 'Ambrish',
+      contact: '7896541232',
       dob: '10/9/198',
+      education: 'HSC',
+      area: 'Area 2',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Akshay_Kumar.jpg/330px-Akshay_Kumar.jpg',
     ),
-    UserData(
+    PeopleData(
       id: 'p3',
       name: 'Haresh',
+      address: 'University Road, Rajkot',
       age: '34',
       bloodGroup: 'O+',
-      address: 'University Road, Rajkot',
+      category: 'Yuvati',
       contact: '9632587412',
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Indian_actor_Amitabh_Bachchan.jpg/330px-Indian_actor_Amitabh_Bachchan.jpg',
-      education: 'Bachelors',
-      category: 'Sadbhav',
       dob: '8/8/1998',
+      education: 'Bachelors',
+      area: 'Area 3',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Indian_actor_Amitabh_Bachchan.jpg/330px-Indian_actor_Amitabh_Bachchan.jpg',
     ),
-    UserData(
+    PeopleData(
       id: 'p4',
       name: 'Tanveer',
+      address: 'Bhagwatipara Road, Rajkot',
       age: '42',
       bloodGroup: 'O-',
-      address: 'Bhagwatipara Road, Rajkot',
+      category: 'Yuvati',
       contact: '9874569854',
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg/330px-Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg',
-      education: 'Masters',
-      category: 'Sadbhav',
       dob: '10/9/1998',
+      education: 'Masters',
+      area: 'Area 4',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg/330px-Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg',
     ),
-    UserData(
+    PeopleData(
       id: 'p5',
       name: 'Manoj',
-      age: '42',
       address: 'Bhagwatipara Road, Rajkot',
-      contact: '8521478963',
+      age: '42',
       bloodGroup: 'AB+',
-      imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/d/d2/Ranbir_Kapoor_promoting_Brahmastra.jpg',
-      education: 'PHD',
       category: 'Yuvak',
+      contact: '8521478963',
       dob: '28/1/1998',
+      education: 'PHD',
+      area: 'Area 5',
+      imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/d/d2/Ranbir_Kapoor_promoting_Brahmastra.jpg',
     ),
-    UserData(
+    PeopleData(
       id: 'p6',
       name: 'Murtaza',
-      age: '24',
       address: 'Bhagwatipara Road, Rajkot',
-      contact: '8521478963',
+      age: '24',
       bloodGroup: 'AB',
-      imageUrl: 'https://fileinfo.com/img/ss/xl/jpg_44.png',
-      education: 'SSC',
       category: 'Ambrish',
+      contact: '8521478963',
       dob: '28/1/2004',
+      education: 'SSC',
+      area: 'Area 6',
+      imageUrl: 'https://fileinfo.com/img/ss/xl/jpg_44.png',
     ),
   ];
 
@@ -91,19 +102,15 @@ class DataProvider with ChangeNotifier {
     ),
     const Category(
       id: 'c2',
-      title: 'Sadbhav',
+      title: 'Yuvati',
     ),
     const Category(
       id: 'c3',
       title: 'Yuvak',
     ),
     const Category(
-      id: 'c4',
+      id: 'c3',
       title: 'Ambrish',
-    ),
-    const Category(
-      id: 'c5',
-      title: 'Menchus',
     ),
   ];
   List<NotificationCard> _listOfNotification = [
@@ -175,94 +182,109 @@ class DataProvider with ChangeNotifier {
     return [..._listOfNotification];
   }
 
-  List<UserData> get list {
+  List<PeopleData> get list {
     return [..._list];
     // ... is a spread operator
   }
 
-  // List<UserData> get sadbhavList {
-  //   return _list.where((element) => element.);
-  //   // ... is a spread operator
-  // }
-  List<UserData> getUserByCategory(String categroy) {
-    List<UserData> userList = [];
+  List<PeopleData> getUserByCategory(String categroy) {
+    List<PeopleData> userList = [];
     userList.addAll(_list.where((element) => element.category == categroy));
     return userList;
   }
 
-  List<UserData> getAllUser(String categroy) {
-    List<UserData> userList = [];
+  List<PeopleData> getAllUser(String categroy) {
+    List<PeopleData> userList = [];
     userList.addAll(_list);
     return userList;
   }
 
-  UserData findById(String id) {
+  PeopleData findById(String id) {
     return _list.firstWhere((prod) => prod.id == id);
   }
 
-  Future<void> updateUser(String id, UserData newUser) async {
-    final prodIndex = _list.indexWhere((prodId) => prodId.id == id);
-    if (prodIndex >= 0) {
-      // final uri = Uri.parse(
-      //   'https://flutter-project-802a7-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken',
-      // );
-      // await http.patch(uri,
-      //     body: json.encode({
-      //       'name': newUser.name,
-      //       'address': newUser.address,
-      //       'imageUrl': newUser.imageUrl,
-      //       'contact': newUser.contact,
-      //     }));
-      _list[prodIndex] = newUser;
-      notifyListeners();
-    } else {}
-  }
+  Future<void> updateUser(String id, PeopleData newPerson) async {}
 
   void clear(int a) {
     _listOfNotification = [];
     notifyListeners();
   }
 
-  Future<void> addProducts(UserData data) async {
-    // final uri = Uri.parse(
-    //   'https://flutter-project-802a7-default-rtdb.firebaseio.com/products.json?auth=$authToken',
-    // );
+  Future<void> fetchAndSetPeopleData() async {
+    // DatabaseReference peopleDataRef =
+    //     FirebaseDatabase.instance.ref('peopleData/');
+    // peopleDataRef.onValue.listen((DatabaseEvent event) {
+    //   final data = event.snapshot.value;
+    //   print(data); // updateUser(data)
+    // });
+
+    // DatabaseReference ref = FirebaseDatabase.instance.ref();
+    // await ref.set({
+    //
+    // });
+    // // final url = Uri.parse(
+    // //   'https://demoapp-9cfcc-default-rtdb.firebaseio.com/peopleData.json',
+    // // );
     // try {
-    //   final response = await http.post(
-    //     uri,
-    //     body: json.encode(
-    //       {
-    // 'name': newUser.name,
-    // 'address': newUser.address,
-    // 'imageUrl': newUser.imageUrl,
-    // 'contact': newUser.contact,
-    // 'creatorId': userId,
-    //   },
-    // ),
-    // );
-    final newUser = UserData(
-      id: DateTime.now().toString(),
-      // id: json.decode(response.body)['name'],
-      name: data.name,
-      address: data.address,
-      contact: data.contact,
-      imageUrl: data.imageUrl,
-      age: data.age,
-      bloodGroup: data.bloodGroup,
-      category: data.contact,
-      dob: data.dob,
-      education: data.education,
-    );
-    _list.add(newUser);
-    notifyListeners();
+    //   final response = await http.get(url);
+    //   final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    //   final List<PeopleData> loadedData = [];
+    //   extractedData.forEach((personId, data) {
+    //     loadedData.add(
+    //       PeopleData(
+    //         id: personId,
+    //         name: data['name'],
+    //         address: data['address'],
+    //         age: data['age'],
+    //         bloodGroup: data['bloodGroup'],
+    //         category: data['category'],
+    //         contact: data['contact'],
+    //         dob: data['dob'],
+    //         education: data['education'],
+    //         area: data['area'],
+    //         imageUrl: data['imageUrl'],
+    //       ),
+    //     );
+    //   });
+    //   _list = loadedData;
+    //   notifyListeners();
+    // } catch (error) {
+    //   throw (error);
+    // }
   }
 
-// catch (error) {
-//   print(error);
-//   throw error;
-// }
+  Future<void> addPeopleData(PeopleData data) async {
+    try {
+      final doc = await db.collection(peopleDataRef).add(data.getJson());
+      if (doc.id != '') {
+        data.id = doc.id;
+      }
+      notifyListeners();
+      _list.add(data);
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
+
   Category findById2(String id) {
     return _categories.firstWhere((prod) => prod.id == id);
   }
-}
 
+  Future<void> deletePerson(String id) async {
+    final url = Uri.parse(
+        'https://flutter-project-802a7-default-rtdb.firebaseio.com/products/$id.json');
+    final existingPersonIndex = _list.indexWhere((person) => person.id == id);
+    var existingPerson = _list[existingPersonIndex];
+
+    _list.removeAt(existingPersonIndex);
+    notifyListeners();
+    // final response = await http.delete(url);
+    // if (response.statusCode >= 400) {
+    //   _list.insert(existingPersonIndex, existingPerson);
+    //   notifyListeners();
+    //   throw HttpException('Could not delete this.');
+    // }
+    // existingPerson = null as PeopleData;
+  }
+}
