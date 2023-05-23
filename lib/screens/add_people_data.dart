@@ -28,7 +28,7 @@ class _AddPeopleDataState extends State<AddPeopleData> {
   final _dob = TextEditingController();
   final _education = TextEditingController();
   final _area = TextEditingController();
-  final _imageFocusNode = FocusNode();
+  final _imageUrl = TextEditingController();
   var _editedUser = PeopleData(
     id: '',
     name: '',
@@ -58,23 +58,11 @@ class _AddPeopleDataState extends State<AddPeopleData> {
   };
 
   @override
-  void initState() {
-    _imageFocusNode.addListener(_updateImageUrl);
-    super.initState();
-  }
-
-  void _updateImageUrl() {
-    if (!_imageFocusNode.hasFocus) {
-      setState(() {});
-    }
-  }
-
-  @override
   void didChangeDependencies() {
     if (_isInit) {
-      final productId = ModalRoute.of(context)!.settings.arguments as dynamic;
-      if (productId != null) {
-        _editedUser = Provider.of<DataProvider>(context).findById(productId);
+      final personId = ModalRoute.of(context)!.settings.arguments as dynamic;
+      if (personId != null) {
+        _editedUser = Provider.of<DataProvider>(context).findById(personId);
         _inItValue = {
           'name': _editedUser.name,
           'address': _editedUser.address,
@@ -91,20 +79,6 @@ class _AddPeopleDataState extends State<AddPeopleData> {
     }
     _isInit = false;
     super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _name.dispose();
-    _address.dispose();
-    _bloodGroup.dispose();
-    _contact.dispose();
-    _dob.dispose();
-    _education.dispose();
-    _area.dispose();
-    _imageFocusNode.dispose();
-    super.dispose();
   }
 
   int calculateAge(DateTime birthDate) {
@@ -126,7 +100,7 @@ class _AddPeopleDataState extends State<AddPeopleData> {
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
-    if (!isValid) {
+    if (!isValid || _selectedImage == null) {
       return;
     }
     _form.currentState!.save();
@@ -140,10 +114,9 @@ class _AddPeopleDataState extends State<AddPeopleData> {
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('images')
-          .child('{$_name}.jpg');
+          .child('${_name.text}.jpg');
       await storageRef.putFile(_selectedImage!);
       _editedUser.imageUrl = await storageRef.getDownloadURL();
-      // print(_editedUser.imageUrl);
       _editedUser = PeopleData(
         id: _editedUser.id,
         name: _name.text,
@@ -159,8 +132,11 @@ class _AddPeopleDataState extends State<AddPeopleData> {
       );
       await Provider.of<DataProvider>(context, listen: false)
           .addPeopleData(_editedUser);
-      Navigator.of(context).pop();
     }
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   @override
@@ -175,54 +151,64 @@ class _AddPeopleDataState extends State<AddPeopleData> {
           )
         ],
       ),
-      body: Form(
-        key: _form,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          children: <Widget>[
-            PersonImagePicker(
-              onPickImage: (pickedImage) async {
-                _selectedImage = pickedImage;
-              },
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Form(
+                key: _form,
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 30,
+                  ),
+                  children: <Widget>[
+                    PersonImagePicker(
+                      onPickImage: (pickedImage) {
+                        _selectedImage = pickedImage;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    nameTextField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    addressTextField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    bloodGroupField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    categoryField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    contactField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    dobField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    educationTextField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    areaTextField(),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            nameTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            addressTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            bloodGroupField(),
-            const SizedBox(
-              height: 20,
-            ),
-            categoryField(),
-            const SizedBox(
-              height: 20,
-            ),
-            contactField(),
-            const SizedBox(
-              height: 20,
-            ),
-            dobField(),
-            const SizedBox(
-              height: 20,
-            ),
-            educationTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            areaTextField(),
-          ],
-        ),
-      ),
     );
   }
 
@@ -305,7 +291,7 @@ class _AddPeopleDataState extends State<AddPeopleData> {
         labelText: "Choose your category",
         helperText: "Category can't be empty",
       ),
-      // value: _category,
+      value: _category,
       items: [
         for (final category in categories)
           DropdownMenuItem(
@@ -353,7 +339,7 @@ class _AddPeopleDataState extends State<AddPeopleData> {
         ),
         labelText: "Contact Number",
         helperText: "Contact can't be empty",
-        hintText: "+91 XXXXX21345",
+        hintText: "99XXX21345",
       ),
     );
   }
@@ -361,12 +347,12 @@ class _AddPeopleDataState extends State<AddPeopleData> {
   Widget dobField() {
     return TextFormField(
       // initialValue: _inItValue['dob'],
-      validator: (value) {
-        if (calculateAge(DateTime.parse(value!)) < 16 || value.isEmpty) {
-          return 'Please enter date.';
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   if (calculateAge(DateTime.parse(value!)) < 16 || value.isEmpty) {
+      //     return 'Please enter date.';
+      //   }
+      //   return null;
+      // },
       readOnly: true,
       controller: _dob,
       decoration: InputDecoration(

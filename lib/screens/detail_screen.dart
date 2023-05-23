@@ -104,6 +104,7 @@ class DetailScreen extends StatelessWidget {
                       'Blood Group:-  ${loadedData.bloodGroup}\n\n'
                       'Address:-  ${loadedData.address}\n\n'
                       'Education:-  ${loadedData.education}\n\n'
+                      'Category:- ${loadedData.category}\n\n'
                       'Contact:-  ${loadedData.contact}\n\n',
                       // textAlign: TextAlign.left,
                       softWrap: true,
