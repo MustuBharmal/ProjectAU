@@ -12,30 +12,33 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          SingleChildScrollView(
-            child: SizedBox(
-              height: deviceSize.height,
-              width: deviceSize.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    child: Image.asset(
-                      "assets/images/atmiya_logo.jpg",
-                    ),
-                  ),
-                  Flexible(
-                    flex: deviceSize.width > 600 ? 2 : 1,
-                    child: const AuthCard(),
-                  ),
-                ],
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 30,
+                  // bottom: 20,
+                  right: 20,
+                  left: 20,
+                ),
+                width: 200,
+                child: Image.asset(
+                  "assets/images/atmiya_logo.jpg",
+                  height: 230,
+                  width: 230,
+                ),
               ),
-            ),
+              // Flexible(
+              //   flex: deviceSize.width > 600 ? 2 : 1,
+              const AuthCard(),
+              // ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

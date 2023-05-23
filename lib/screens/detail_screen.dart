@@ -1,7 +1,6 @@
-import 'package:demoapp/screens/add_new_detail_screen.dart';
+import '../screens/add_people_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/data_provider.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -15,7 +14,6 @@ class DetailScreen extends StatelessWidget {
       context,
       listen: false,
     ).findById(detailId);
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -39,7 +37,10 @@ class DetailScreen extends StatelessWidget {
               Icons.add,
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed(AddNewDetailScreen.routeName);
+              Navigator.of(context).pushNamed(
+                AddPeopleData.routeName,
+                arguments: loadedData.id,
+              );
             },
           ),
         ],

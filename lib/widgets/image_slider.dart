@@ -28,16 +28,6 @@ class ImageSlider extends StatelessWidget {
                         left: 0.0,
                         right: 0.0,
                         child: Container(
-                          // decoration: const BoxDecoration(
-                          //   gradient: LinearGradient(
-                          //     colors: [
-                          //       Color.fromARGB(200, 0, 0, 0),
-                          //       Color.fromARGB(0, 0, 0, 0)
-                          //     ],
-                          //     begin: Alignment.bottomCenter,
-                          //     end: Alignment.topCenter,
-                          //   ),
-                          // ),
                           padding: const EdgeInsets.symmetric(
                             vertical: 1,
                             horizontal: 15.0,

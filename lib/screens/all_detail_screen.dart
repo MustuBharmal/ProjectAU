@@ -1,4 +1,3 @@
-import '../models/category.dart';
 import '../models/people_data.dart';
 import '../screens/home_page.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import '../widgets/all_details.dart';
 import '../widgets/custom_search_delegate.dart';
 
 class AllDetailScreen extends StatefulWidget {
-  static const routeName = '/all_details_screen';
+  static const routeName = '/all_detail_screen';
 
   const AllDetailScreen({super.key});
 
@@ -17,7 +16,6 @@ class AllDetailScreen extends StatefulWidget {
 }
 
 class _AllDetailScreenState extends State<AllDetailScreen> {
-  Category? category;
   bool dataFetched = false;
   late List<PeopleData> userData;
   var _isInit = true;
@@ -25,7 +23,6 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
 
   @override
   void initState() {
-    // Provider.of<DataProvider>(context).fetchAndSetProducts();
     super.initState();
   }
 
@@ -33,16 +30,7 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     if (!dataFetched) {
-      final args =
-          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      category = args['category'] as Category;
-      if (category!.title == 'All Details') {
-        userData =
-            Provider.of<DataProvider>(context).getAllUser(category!.title);
-      } else {
-        userData = Provider.of<DataProvider>(context)
-            .getUserByCategory(category!.title);
-      }
+      userData = Provider.of<DataProvider>(context).getAllUser();
     }
 
     dataFetched = true;
@@ -50,7 +38,7 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<DataProvider>(context).fetchAndSetPeopleData().then((_) {
+      Provider.of<DataProvider>(context).fetchData().then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -64,9 +52,9 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          category!.title,
-          style: const TextStyle(
+        title: const Text(
+          "All Details",
+          style: TextStyle(
             color: Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -94,16 +82,18 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemBuilder: (ctx, i) => AllDetails(
-          userData[i].id,
-          userData[i].name,
-          userData[i].imageUrl,
-          userData[i].category,
-          userData[i].education,
-        ),
-        itemCount: userData.length,
-      ),
+      body: _isLoading
+          ? const CircularProgressIndicator()
+          : ListView.builder(
+              itemBuilder: (ctx, i) => AllDetails(
+                userData[i].id,
+                userData[i].name,
+                userData[i].imageUrl,
+                userData[i].category,
+                userData[i].education,
+              ),
+              itemCount: userData.length,
+            ),
     );
   }
 }

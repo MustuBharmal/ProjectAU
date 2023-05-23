@@ -16,15 +16,16 @@ class _NotificationCardsState extends State<NotificationCards> {
     final dataProvider = Provider.of<DataProvider>(context);
     return SingleChildScrollView(
       child: Column(children: <Widget>[
+
         StackedNotificationCards(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.25),
-              blurRadius: 2.0,
+              color:Theme.of(context).colorScheme.primary,
+              blurRadius: 3.0,
             )
           ],
           notificationCards: dataProvider.listOfNotification,
-          cardColor: const Color(0xC7FFBE4D),
+          cardColor: Theme.of(context).colorScheme.secondary,
           padding: 14,
           actionTitle: const Text(
             'Notifications',

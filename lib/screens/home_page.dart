@@ -43,12 +43,17 @@ class HomePage extends StatelessWidget {
       ),
       drawer: const AppDrawer(),
       body: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: const <Widget>[
             ImageSlider(),
+            SizedBox(
+              height: 20,
+            ),
             BodyDetail(),
-            Divider(),
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
               child: NotificationCards(),
             ),

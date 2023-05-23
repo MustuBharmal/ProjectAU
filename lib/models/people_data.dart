@@ -1,18 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PeopleData {
-  String id;
+  String? id;
   final String name;
   final String address;
   final String age;
   final String bloodGroup;
-  final String category;
+  late final String category;
   final String contact;
   final String dob;
   final String education;
   final String area;
-  final String imageUrl;
+  late String imageUrl;
 
   PeopleData({
-    required this.id,
+    this.id,
     required this.name,
     required this.address,
     required this.age,
@@ -25,7 +27,7 @@ class PeopleData {
     required this.imageUrl,
   });
 
-  Map<String, dynamic> getJson() {
+  toJson() {
     return {
       'name': name,
       'address': address,
@@ -33,16 +35,18 @@ class PeopleData {
       'contact': contact,
       'bloodGroup': bloodGroup,
       'category': category,
-      'dob': category,
+      'dob': dob,
       'education': education,
       'area': area,
       'imageUrl': imageUrl,
     };
   }
 
-  factory PeopleData.fromFirebase(Map<String, dynamic> data, String id) {
+  factory PeopleData.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data()!;
     return PeopleData(
-      id: id,
+      id: document.id,
       name: data['name'],
       address: data['address'],
       age: data['age'],

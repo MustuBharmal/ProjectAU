@@ -28,19 +28,27 @@ class _AuthCardState extends State<AuthCard>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(
+        milliseconds: 300,
+      ),
     );
     _heightAnimation = Tween<Size>(
-            begin: const Size(double.infinity, 260),
-            end: const Size(double.infinity, 320))
-        .animate(
+      begin: const Size(
+        double.infinity,
+        200,
+      ),
+      end: const Size(
+        double.infinity,
+        260,
+      ),
+    ).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.fastOutSlowIn,
       ),
     );
     _heightAnimation.addListener(() => setState(() {}));
-    _opacityAnimation = Tween<double>(begin: 260, end: 320).animate(
+    _opacityAnimation = Tween<double>(begin: 200, end: 320).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.fastOutSlowIn,
@@ -81,22 +89,25 @@ class _AuthCardState extends State<AuthCard>
     final deviceSize = MediaQuery.of(context).size;
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       elevation: 8.0,
       child: AnimatedBuilder(
         animation: _heightAnimation,
         builder: (ctx, ch) => Container(
-            height: _heightAnimation.value.height,
-            constraints:
-                BoxConstraints(minHeight: _heightAnimation.value.height),
-            width: deviceSize.width * 0.75,
-            padding: const EdgeInsets.all(16.0),
-            child: ch),
+          height: _heightAnimation.value.height,
+          constraints: BoxConstraints(minHeight: _heightAnimation.value.height),
+          width: deviceSize.width * 0.90,
+          padding: const EdgeInsets.all(16.0),
+          child: ch,
+        ),
         child: Form(
           key: _form,
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextFormField(
                   decoration: const InputDecoration(
@@ -142,8 +153,6 @@ class _AuthCardState extends State<AuthCard>
                   ElevatedButton(
                     onPressed: _submit,
                     style: ElevatedButton.styleFrom(
-                      // backgroundColor:
-                      //     Theme.of(context).colorScheme.primaryContainer,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),

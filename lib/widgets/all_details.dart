@@ -2,13 +2,16 @@ import '../screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class AllDetails extends StatelessWidget {
-
-  final String id;
+  final String? id;
   final String name;
   final String imageUrl;
   final String category;
   final String education;
-  const AllDetails(this.id, this.name, this.imageUrl, this.category, this.education, {super.key});
+
+  const AllDetails(
+      this.id, this.name, this.imageUrl, this.category, this.education,
+      {super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,7 +37,7 @@ class AllDetails extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed(
                 DetailScreen.routeNamed,
-                arguments: (id),
+                arguments: id,
               );
             },
             horizontalTitleGap: 30,
