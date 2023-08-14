@@ -1,9 +1,10 @@
-import '../models/category.dart';
-import '../models/people_data.dart';
-import '../screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/category.dart';
+import '../models/people_data.dart';
 import '../providers/data_provider.dart';
+import '../screens/home_page.dart';
 import '../widgets/all_details.dart';
 import '../widgets/custom_search_delegate.dart';
 
@@ -59,7 +60,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+            Navigator.of(context).pushNamed(
+              HomePage.routeNamed,
+            );
           },
           icon: const Icon(Icons.arrow_back),
         ),

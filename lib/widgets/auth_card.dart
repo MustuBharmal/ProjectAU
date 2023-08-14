@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -22,6 +23,7 @@ class _AuthCardState extends State<AuthCard>
   late Animation<Size> _heightAnimation;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
+  final dbRef = FirebaseDatabase.instance.ref().child('peopleData');
 
   @override
   void initState() {
@@ -68,7 +70,7 @@ class _AuthCardState extends State<AuthCard>
     try {
       final userCredentials = await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPass);
-    } on FirebaseAuthException catch (error) {
+       } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
         //..
       }

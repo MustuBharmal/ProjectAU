@@ -1,24 +1,41 @@
-import 'package:demoapp/screens/all_detail_screen.dart';
-
-import '../data/category.dart';
-import '../screens/add_people_data.dart';
+import '../screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../data/category.dart';
 import '../providers/data_provider.dart';
-import 'details_screen.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  String userId;
+
+  AppDrawer(this.userId, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    void clicking(int num) {
+      Navigator.of(context).pushReplacementNamed(
+        DetailsScreen.routeName,
+        arguments: {
+          'category': categories[num],
+        },
+      );
+    }
+
+    String category = '';
+    if (userId == 'Qi4FpTqpLMbBN0w1UBjtkH4tdpE3') {
+      category = 'Yuvati';
+    } else if (userId == 'nYDijzat6nZhTwxADul7T80Czr52') {
+      category = 'Yuvak';
+    } else if (userId == 'EyPoGULV3kVQ7gHatm0ZQrV1H3d2') {
+      category = 'Ambrish';
+    }
     return Drawer(
       child: Column(
         children: <Widget>[
           AppBar(
             toolbarHeight: 100,
-            title: const Text(
-              'Admin',
+            title: Text(
+              category,
             ),
             automaticallyImplyLeading: false,
             leading: CircleAvatar(
@@ -46,22 +63,11 @@ class AppDrawer extends StatelessWidget {
                   Icons.account_balance,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                title: const Text('All Details'),
+                title: Text(category),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(
-                    AllDetailScreen.routeName,
-                  );
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.edit,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                title: const Text('Add Member'),
-                onTap: () {
-                  Navigator.of(context).pushNamed(AddPeopleData.routeName);
+                  clicking(category == 'Yuvak'
+                      ? 1
+                      : (category == 'Ambrish' ? 2 : 0));
                 },
               ),
               const Divider(),

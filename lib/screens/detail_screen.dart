@@ -5,7 +5,7 @@ import '../providers/data_provider.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
-  static const routeNamed = '/detail_screen';
+  static const routeName = '/detail_screen';
 
   @override
   Widget build(BuildContext context) {

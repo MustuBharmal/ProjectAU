@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PeopleData {
-  String? id;
+  String id;
   final String name;
   final String address;
   final String age;
@@ -14,7 +14,7 @@ class PeopleData {
   late String imageUrl;
 
   PeopleData({
-    this.id,
+    required this.id,
     required this.name,
     required this.address,
     required this.age,

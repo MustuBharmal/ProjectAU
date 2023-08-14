@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:stacked_notification_cards/stacked_notification_cards.dart';
 
 import '/constant/firestore_constant.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked_notification_cards/stacked_notification_cards.dart';
 import '../models/people_data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataProvider with ChangeNotifier {
   final db = FirebaseFirestore.instance;
@@ -19,7 +20,7 @@ class DataProvider with ChangeNotifier {
         size: 48,
         color: Color(0xFFFFFFFF),
       ),
-      title: 'OakTree 1',
+      title: 'Birthday',
       subtitle: 'We believe in the power of mobile computing.',
     ),
     NotificationCard(
@@ -99,6 +100,12 @@ class DataProvider with ChangeNotifier {
     return _list.firstWhere((person) => person.id == id);
   }
 
+  PeopleData birthday() {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd-MM-yyyy').format(now);
+    return _list.firstWhere((person) => person.dob == formattedDate.toString());
+  }
+
   Future<void> updatePerson(String? id, PeopleData newPerson) async {
     var col = db.collection('peopleData');
     col.doc('id').update(
@@ -117,9 +124,9 @@ class DataProvider with ChangeNotifier {
     final docRef = db.collection('peopleData');
     docRef.get().then(
       (ref) {
-        ref.docs.forEach((element) {
+        for (var element in ref.docs) {
           _list.add(PeopleData.fromSnapshot(element));
-        });
+        }
       },
       onError: (e) => print('Error getting document: $e'),
     );
@@ -135,13 +142,13 @@ class DataProvider with ChangeNotifier {
       _list.add(data);
       notifyListeners();
     } catch (error) {
-      print(error);
+      // print(error);
       throw error;
     }
   }
 
-  void logout() {
-    FirebaseAuth.instance.signOut();
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
     notifyListeners();
   }
 
@@ -151,21 +158,20 @@ class DataProvider with ChangeNotifier {
         snapshot.docs.map((e) => PeopleData.fromSnapshot(e)).toList();
     return personData;
   }
-
-  Future<void> deletePerson(String id) async {
-    final url = Uri.parse(
-        'https://flutter-project-802a7-default-rtdb.firebaseio.com/products/$id.json');
-    final existingPersonIndex = _list.indexWhere((person) => person.id == id);
-    var existingPerson = _list[existingPersonIndex];
-
-    _list.removeAt(existingPersonIndex);
-    notifyListeners();
-    // final response = await http.delete(url);
-    // if (response.statusCode >= 400) {
-    //   _list.insert(existingPersonIndex, existingPerson);
-    //   notifyListeners();
-    //   throw HttpException('Could not delete this.');
-    // }
-    // existingPerson = null as PeopleData;
-  }
 }
+// Future<void> deletePerson(String id) async {
+//   final url = Uri.parse(
+//       'https://flutter-project-802a7-default-rtdb.firebaseio.com/products/$id.json');
+//   final existingPersonIndex = _list.indexWhere((person) => person.id == id);
+//   var existingPerson = _list[existingPersonIndex];
+//
+//   _list.removeAt(existingPersonIndex);
+//   notifyListeners();
+// final response = await http.delete(url);
+// if (response.statusCode >= 400) {
+//   _list.insert(existingPersonIndex, existingPerson);
+//   notifyListeners();
+//   throw HttpException('Could not delete this.');
+// }
+// existingPerson = null as PeopleData;
+// }

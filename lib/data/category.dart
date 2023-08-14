@@ -3,23 +3,18 @@ import '../models/category.dart';
 final List<Category> categories = [
   const Category(
     id: 'c1',
-    title: 'All Details',
-    role: 'r0',
-  ),
-  const Category(
-    id: 'c2',
     title: 'Yuvati',
     role: 'r1',
   ),
   const Category(
-    id: 'c3',
+    id: 'c2',
     title: 'Yuvak',
     role: 'r2',
   ),
   const Category(
     id: 'c3',
     title: 'Ambrish',
-    role: 'r2',
+    role: 'r3',
   ),
 ];
 // List<Category> get categories {
