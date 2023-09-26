@@ -18,22 +18,14 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  Future<void> _refreshProd(BuildContext context) async {
-    await Provider.of<DataProvider>(context, listen: false).fetchData();
-  }
-
   Category? category;
   bool dataFetched = false;
   late List<PeopleData> userData;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  var _isInit = true;
+  var _isLoading = false;
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     if (!dataFetched) {
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -43,6 +35,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
 
     dataFetched = true;
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<DataProvider>(context).fetchData().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+
     super.didChangeDependencies();
   }
 
@@ -82,27 +86,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
           )
         ],
       ),
-      body: FutureBuilder(
-        future: _refreshProd(context),
-        builder: (ctx, snapshot) =>
-            snapshot.connectionState == ConnectionState.waiting
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : RefreshIndicator(
-                    onRefresh: () => _refreshProd(context),
-                    child: ListView.builder(
-                      itemBuilder: (ctx, i) => AllDetails(
-                        userData[i].id,
-                        userData[i].name,
-                        userData[i].imageUrl,
-                        userData[i].category,
-                        userData[i].education,
-                      ),
-                      itemCount: userData.length,
-                    ),
-                  ),
-      ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemBuilder: (ctx, i) => AllDetails(
+                userData[i].id,
+                userData[i].name,
+                userData[i].imageUrl,
+                userData[i].category,
+                userData[i].education,
+              ),
+              itemCount: userData.length,
+            ),
     );
   }
 }

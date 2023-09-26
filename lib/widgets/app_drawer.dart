@@ -1,14 +1,13 @@
-import '../screens/details_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../data/category.dart';
 import '../providers/data_provider.dart';
+import '../screens/details_screen.dart';
 
 class AppDrawer extends StatelessWidget {
-  String userId;
-
-  AppDrawer(this.userId, {super.key});
+  const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +21,13 @@ class AppDrawer extends StatelessWidget {
     }
 
     String category = '';
-    if (userId == 'Qi4FpTqpLMbBN0w1UBjtkH4tdpE3') {
+    if (FirebaseAuth.instance.currentUser!.uid == 'Qi4FpTqpLMbBN0w1UBjtkH4tdpE3') {
       category = 'Yuvati';
-    } else if (userId == 'nYDijzat6nZhTwxADul7T80Czr52') {
+    } else if (FirebaseAuth.instance.currentUser!.uid ==
+        'nYDijzat6nZhTwxADul7T80Czr52') {
       category = 'Yuvak';
-    } else if (userId == 'EyPoGULV3kVQ7gHatm0ZQrV1H3d2') {
+    } else if (FirebaseAuth.instance.currentUser!.uid ==
+        'EyPoGULV3kVQ7gHatm0ZQrV1H3d2') {
       category = 'Ambrish';
     }
     return Drawer(

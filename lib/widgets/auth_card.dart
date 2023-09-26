@@ -23,7 +23,6 @@ class _AuthCardState extends State<AuthCard>
   late Animation<Size> _heightAnimation;
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
-  final dbRef = FirebaseDatabase.instance.ref().child('peopleData');
 
   @override
   void initState() {

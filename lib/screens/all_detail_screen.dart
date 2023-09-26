@@ -22,10 +22,6 @@ class _AllDetailScreenState extends State<AllDetailScreen> {
   var _isInit = true;
   var _isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {

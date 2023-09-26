@@ -1,5 +1,3 @@
-import 'dart:async';
-import '../screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -8,18 +6,11 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(
-      const Duration(seconds: 2),
-      () => Navigator.pushNamed(
-        context,
-        AuthScreen.routeName,
-      ),
-    );
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:<Widget> [
+        children: <Widget>[
           const Center(
             child: Image(
               image: AssetImage('assets/images/atmiya_logo.jpg'),

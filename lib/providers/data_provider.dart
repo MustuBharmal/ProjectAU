@@ -85,14 +85,12 @@ class DataProvider with ChangeNotifier {
   List<PeopleData> getUserByCategory(String category) {
     List<PeopleData> userList = [];
     userList.addAll(_list.where((element) => element.category == category));
-    notifyListeners();
     return userList;
   }
 
   List<PeopleData> getAllUser() {
     List<PeopleData> userList = [];
     userList.addAll(_list);
-    notifyListeners();
     return userList;
   }
 
@@ -122,7 +120,7 @@ class DataProvider with ChangeNotifier {
   Future<void> fetchData() async {
     _list.clear();
     final docRef = db.collection('peopleData');
-    docRef.get().then(
+    await docRef.get().then(
       (ref) {
         for (var element in ref.docs) {
           _list.add(PeopleData.fromSnapshot(element));

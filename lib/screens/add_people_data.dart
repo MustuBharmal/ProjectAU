@@ -85,6 +85,7 @@ class _AddPeopleDataState extends State<AddPeopleData> {
     DateTime currentDate = DateTime.now();
     int age = currentDate.year - birthDate.year;
     int month1 = currentDate.month;
+
     int month2 = birthDate.month;
     if (month2 > month1) {
       age--;
@@ -136,7 +137,20 @@ class _AddPeopleDataState extends State<AddPeopleData> {
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _name.dispose();
+    _contact.dispose();
+    _dob.dispose();
+    _area.dispose();
+    _education.dispose();
+    _address.dispose();
+    _bloodGroup.dispose();
+    _imageUrl.dispose();
+    super.dispose();
   }
 
   @override
@@ -298,7 +312,7 @@ class _AddPeopleDataState extends State<AddPeopleData> {
             value: category,
             child: Row(
               children: [
-                Container(
+                const SizedBox(
                   width: 25,
                   height: 25,
                 ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../data/category.dart';
@@ -10,11 +11,9 @@ import 'details_screen.dart';
 import 'notifications_screen.dart';
 
 class HomePage extends StatelessWidget {
-  String userId = '';
-
-  HomePage(this.userId, {super.key});
-
   static const routeNamed = '/homepage_screen';
+
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,13 @@ class HomePage extends StatelessWidget {
     }
 
     String checkUser() {
-      if (userId == 'Qi4FpTqpLMbBN0w1UBjtkH4tdpE3') {
+      if (FirebaseAuth.instance.currentUser!.uid == 'Qi4FpTqpLMbBN0w1UBjtkH4tdpE3') {
         return 'yuvati';
-      } else if (userId == 'nYDijzat6nZhTwxADul7T80Czr52') {
+      } else if (FirebaseAuth.instance.currentUser!.uid ==
+          'nYDijzat6nZhTwxADul7T80Czr52') {
         return 'yuvak';
-      } else if (userId == 'EyPoGULV3kVQ7gHatm0ZQrV1H3d2') {
+      } else if (FirebaseAuth.instance.currentUser!.uid ==
+          'EyPoGULV3kVQ7gHatm0ZQrV1H3d2') {
         return 'ambrish';
       }
       return 'admin';
@@ -66,13 +67,12 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed(
                 NotificationsScreen.routeName,
-                arguments: userId,
               );
             },
           ),
         ],
       ),
-      drawer: userId == admin ? const AdminAppDrawer() : AppDrawer(userId),
+      drawer: FirebaseAuth.instance.currentUser?.uid == admin ? const AdminAppDrawer() : const AppDrawer(),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(

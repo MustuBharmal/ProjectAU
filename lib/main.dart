@@ -15,8 +15,6 @@ import '../screens/splash_screen.dart';
 import 'firebase_options.dart';
 import 'screens/home_page.dart';
 
-final user = FirebaseAuth.instance.currentUser;
-var userId = user!.uid;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               return const SplashScreen();
             }
             if (snapshot.hasData) {
-              return HomePage(userId);
+              return const HomePage();
             }
             return const AuthScreen();
           },
@@ -72,7 +70,7 @@ class _MyAppState extends State<MyApp> {
           AddPeopleData.routeName: (ctx) => const AddPeopleData(),
           NotificationsScreen.routeName: (ctx) => const NotificationsScreen(),
           DetailScreen.routeName: (ctx) => const DetailScreen(),
-          HomePage.routeNamed: (ctx) => HomePage(userId),
+          HomePage.routeNamed: (ctx) => const HomePage(),
           AuthScreen.routeName: (ctx) => const AuthScreen(),
         },
       ),
